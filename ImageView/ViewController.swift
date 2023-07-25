@@ -1,57 +1,55 @@
 //
 //  ViewController.swift
-//  my_practice_1
+//  ImageView
 //
-//  Created by 이태윤 on 2023/07/05.
+//  Created by 이태윤 on 2023/07/04.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
+    var isZoom = false
+    var imgOn : UIImage?
+    var imgOff : UIImage?
     
-    
-    @IBOutlet var current_time: UILabel!
-    @IBOutlet var chosen_time: UILabel!
-    @IBOutlet var image_view: UIImageView!
-    
-    var img_on : UIImage?
-    var img_off : UIImage?
-    let interval = 1.0
-    let selector : Selector = #selector(ViewController.updatetime)
-    var n1 : String?
+    @IBOutlet var Image_1: UIImageView!
+    @IBOutlet var button_1: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        img_on = UIImage(named : "lamp_on.png")
-        img_off = UIImage(named: "lamp_off.png")
-        Timer.scheduledTimer(timeInterval: interval, target: self, selector: selector, userInfo: nil, repeats: true)
+        imgOn = UIImage(named: "lamp_on.png")
+        imgOff = UIImage(named : "lamp_off.png")
+        Image_1.image = imgOn
         // Do any additional setup after loading the view.
     }
 
     
-    
-    @IBAction func date_picker(_ sender: UIDatePicker) {
-        let datepicker = sender
-        let formatter = DateFormatter()
-        let formatter_1 = DateFormatter()
-        formatter.dateFormat = "yyyy - MM - dd / HH : mm : ss / EEE"
-        formatter_1.dateFormat = "yyyy - MM - dd / HH : mm / EEE"
-        chosen_time.text = "선택 시간 : " + formatter.string(from : datepicker.date)
-        n1 = formatter_1.string(from : datepicker.date)
+    @IBAction func button_resize_image(_ sender: UIButton) {
+        let scale : CGFloat = 2.0
+        var newWidth : CGFloat
+        var newHeight : CGFloat
+        
+        if (isZoom) {
+            newWidth = Image_1.frame.width/scale
+            newHeight = Image_1.frame.height/scale
+            button_1.setTitle("확대", for: .normal)
+        } else {
+            newWidth = Image_1.frame.width*scale
+            newHeight = Image_1.frame.height*scale
+            button_1.setTitle("축소", for: .normal)
+        }
+        
+        Image_1.frame.size = CGSize(width: newWidth, height: newHeight)
+        isZoom = !isZoom
     }
     
-    @objc func updatetime() {
-        let date = NSDate()
-        let formatter = DateFormatter()
-        let formatter_2 = DateFormatter()
-        formatter.dateFormat = "yyyy - MM - dd / HH : mm : ss / EEE"
-        formatter_2.dateFormat = "yyyy - MM - dd / HH : mm / EEE"
-        current_time.text = "현재 시간 : " + formatter.string(from: date as Date)
-        if n1 == formatter_2.string(from : date as Date) {
-            image_view.image = img_on
+    
+    @IBAction func switch_resize_image(_ sender: UISwitch) {
+        if sender.isOn {
+            Image_1.image = imgOn
         } else {
-            image_view.image = img_off
+            Image_1.image = imgOff
         }
     }
     
