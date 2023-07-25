@@ -1,8 +1,9 @@
-# App created using *Image Viewer*
+# 설명
+***이미지 뷰***, ***스위치***, ***버튼*** 등을 활용하여 만든 간단한 연습용 앱
 
-# Key Features
-1. **Zoom button** allows you to zoom in and out of bulb photos
-2. **A switch at the bottom** allows the bulb to illuminate or extinguish
+# 주요 기능
+1. ***확대/축소 버튼***을 이용하여 *전구 사진의 크기*를 조절할 수 있다.
+2. ***스위치***를 이용하여 *전구에 불*을 키거나 끌 수 있다.
 
 # Run screen
 
